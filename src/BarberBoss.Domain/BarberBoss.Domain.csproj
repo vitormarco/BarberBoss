@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BarberBoss.Infrastructure\BarberBoss.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>

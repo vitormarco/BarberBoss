@@ -5,5 +5,5 @@ namespace BarberBoss.Application.UseCases.Incomes.Register;
 
 public interface IRegisterIncomeUseCase
 {
-    Task<ResponseRegisteredIncomeJson> Execute(RequestIcomeJson request);
+    Task<ResponseRegisteredIncomeJson> Execute(RequestIncomeJson request);
 }

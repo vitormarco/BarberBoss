@@ -1,22 +1,45 @@
-﻿using BarberBoss.Communication.Requests;
+﻿using AutoMapper;
+using BarberBoss.Communication.Requests;
 using BarberBoss.Communication.Responses;
+using BarberBoss.Domain.Entities;
+using BarberBoss.Domain.Repositories;
+using BarberBoss.Domain.Repositories.Incomes;
+using BarberBoss.Exception.ExceptionBase;
 
 namespace BarberBoss.Application.UseCases.Incomes.Register;
 
-public class RegisterIncomeUseCase : IRegisterIncomeUseCase
+public class RegisterIncomeUseCase(
+    IIncomesWriteOnlyRepository repository,
+    IUnitOfWork unitOfWork,
+    IMapper mapper) : IRegisterIncomeUseCase
 {
-    public async Task<ResponseRegisteredIncomeJson> Execute(RequestIcomeJson request)
+    private readonly IIncomesWriteOnlyRepository _repository = repository;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IMapper _mapper = mapper;
+
+    public async Task<ResponseRegisteredIncomeJson> Execute(RequestIncomeJson request)
     {
-        // Validate the request
+        Validate(request);
+        var entity = _mapper.Map<Income>(request);
+        
+        await _repository.Add(entity);
+        await _unitOfWork.Commit();
 
-        // Attach the request to Entity
+        return _mapper.Map<ResponseRegisteredIncomeJson>(entity);
+    }
 
-        // prepare the sql to insert the data
-        await Task.Delay(100);
-        // Execute the sql
-        await Task.Delay(100);
+    private static void Validate(RequestIncomeJson request)
+    {
+        var validator = new IncomeValidator();
+        var result = validator.Validate(request);
 
-        // return the response
-        return new ResponseRegisteredIncomeJson { Id = 1, Title = request.Title };
+        if (result.IsValid is false)
+        {
+            var errorMessages = result
+                                    .Errors
+                                    .Select(error => error.ErrorMessage)
+                                    .ToList();
+            throw new ErrorOnValidationException(errorMessages);
+        }
     }
 }

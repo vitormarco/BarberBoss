@@ -1,11 +1,12 @@
-﻿using BarberBoss.Communication.Enums;
+﻿using BarberBoss.Domain.Enums;
 
-namespace BarberBoss.Communication.Requests;
+namespace BarberBoss.Domain.Entities;
 
-public class RequestIcomeJson
+public class Income
 {
+    public long Id { get; set; }
     public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
     public DateTime Date { get; set; }
     public decimal Amount { get; set; }
     public PaymentType PaymentType { get; set; }

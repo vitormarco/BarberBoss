@@ -1,4 +1,7 @@
+using BarberBoss.Api.Filters;
+using BarberBoss.Api.Middleware;
 using BarberBoss.Application;
+using BarberBoss.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(option => option.LowercaseUrls = true);
+builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
 
+builder.Services.AddInfrastructure(configuration: builder.Configuration);
 builder.Services.AddApplication();
 
 var app = builder.Build();
@@ -16,6 +21,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<CultureMiddleware>();
 
 app.UseHttpsRedirection();
 
