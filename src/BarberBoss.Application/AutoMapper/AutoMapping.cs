@@ -15,5 +15,10 @@ public class AutoMapping : Profile
 
     private void RequestToEntity() => CreateMap<RequestIncomeJson, Income>();
 
-    private void EntityToResponse() => CreateMap<Income, ResponseRegisteredIncomeJson>();
+    private void EntityToResponse()
+    {
+        CreateMap<Income, ResponseRegisteredIncomeJson>();
+        CreateMap<Income, ResponseShortIncomeJson>();
+        CreateMap<Income, ResponseIncomeJson>();
+    }
 }

@@ -18,11 +18,14 @@ public static class DependecyInjectionExtension
 
     private static void AddRepositories(IServiceCollection services)
     {
-        services.AddScoped<IIncomesWriteOnlyRepository, IncomesRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IIncomesWriteOnlyRepository, IncomesRepository>();
+        services.AddScoped<IIncomesReadOnlyRepository, IncomesRepository>();
+        services.AddScoped<IIncomeUpdateOnlyRepository, IncomesRepository>();
+        services.AddScoped<IIncomesDeleteOnlyRepository, IncomesRepository>();
     }
-
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
+
     {
         var connectionString = configuration.GetConnectionString("Connection");
         var serverVersion = new MySqlServerVersion(new Version(major: 9, minor: 2, build: 0));

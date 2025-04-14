@@ -123,6 +123,9 @@
   <data name="INCOME_DATE_CANNOT_BE_IN_FUTTURE" xml:space="preserve">
     <value>Date of income cannot be in future</value>
   </data>
+  <data name="INCOME_NOT_FOUND" xml:space="preserve">
+    <value>Income not found</value>
+  </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>Payment type is invalid</value>
   </data>

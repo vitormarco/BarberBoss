@@ -79,6 +79,15 @@ namespace BarberBoss.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Income not found.
+        /// </summary>
+        public static string INCOME_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("INCOME_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payment type is invalid.
         /// </summary>
         public static string PAYMENT_TYPE_INVALID {
